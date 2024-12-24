@@ -1,14 +1,16 @@
-document.getElementById('guestbook-form').addEventListener('submit', function (e) {
-  e.preventDefault();
+document.addEventListener("DOMContentLoaded", () => {
+  const sections = document.querySelectorAll(".section");
 
-  const name = document.getElementById('name').value;
-  const message = document.getElementById('message').value;
+  const revealSections = () => {
+    const windowHeight = window.innerHeight;
+    sections.forEach((section) => {
+      const sectionTop = section.getBoundingClientRect().top;
+      if (sectionTop < windowHeight - 100) {
+        section.classList.add("visible");
+      }
+    });
+  };
 
-  const messageDiv = document.createElement('div');
-  messageDiv.textContent = `${name}: ${message}`;
-
-  document.getElementById('messages').appendChild(messageDiv);
-
-  // 폼 초기화
-  e.target.reset();
+  window.addEventListener("scroll", revealSections);
+  revealSections(); // 초기 실행
 });
